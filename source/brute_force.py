@@ -1,10 +1,8 @@
 class BruteForce:
 
-    def __init__(self, graph, with_duolion = False, is_directed = False):
+    def __init__(self, graph, is_directed = False):
         self.graph = graph
-        self.triangle_value = 1 / 3 if with_duolion else 1
         self.denominator = 3 if is_directed else 6
-        self.order = None
 
     def brute_force(self):
         adj = self.graph.adj_matrix()

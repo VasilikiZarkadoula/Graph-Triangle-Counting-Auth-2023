@@ -33,6 +33,9 @@ class Graph:
         except TypeError:
             return None
 
+    def set_neighbors(self, v, neighbors):
+        self.graph[v] = neighbors
+
     def toString(self):
         print(self.graph)
 

@@ -2,15 +2,15 @@
 class NeighborsIterator:
     def __init__(self, neighbors):
         self.neighbors = neighbors
-        self.i = 0
+        self.i = -1
 
     def has_next(self):
         return self.i < len(self.neighbors)
 
     def next(self):
         try:
-            node = self.neighbors[self.i]
             self.i += 1
+            node = self.neighbors[self.i]
         except IndexError:
             node = None
         return node
@@ -19,9 +19,8 @@ class NeighborsIterator:
 class CompactForward:
     # TODO : check directed graphs
 
-    def __init__(self, graph, with_duolion = False):
+    def __init__(self, graph):
         self.graph = graph
-        self.triangle_value = 1 / 3 if with_duolion else 1
         self.order = None
 
     def degree_order(self):
@@ -70,8 +69,7 @@ class CompactForward:
                             elif self.order[u_] > self.order[v_]:             # 3abb
                                 v_ = Nv.next()
                             else:                                             # 3abc
-                                count_triangles += self.triangle_value
-                                #print(u, v, u_)
+                                count_triangles += 1
                                 u_ = Nu.next()
                                 v_ = Nv.next()
                         else:
