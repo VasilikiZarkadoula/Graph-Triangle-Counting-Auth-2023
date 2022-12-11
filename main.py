@@ -1,4 +1,5 @@
 from source.brute_force import BruteForce
+from source.node_iterator import NodeIterator
 from source.compact_forward import CompactForward
 from source.doulion import Doulion
 from source.graph_class import Graph
@@ -6,23 +7,24 @@ import time
 
 
 def main():
-    with_doulion = True
+    with_doulion = False
     p = 0.8
 
     # select graph
-    graph_path, is_directed, has_triangles = graph_picker("astroph")
-    graph = Graph(graph_path)
+    graph_path, is_directed, has_triangles = graph_picker("grqc")
+    graph, graph_edges = Graph(graph_path)
 
     # run doulion
     if with_doulion:
         run_with_timer(
             Doulion(p, graph, is_directed).doulion)
 
-    compact_forward = CompactForward(graph).compact_forward
     # brute_force = BruteForce(graph, is_directed).brute_force
+    node_iterator = NodeIterator(graph, graph_edges).node_iterator
+    # compact_forward = CompactForward(graph).compact_forward
 
     # run list of algorithms
-    for algorithm in [compact_forward]:
+    for algorithm in [node_iterator]:
 
         triangles = run_with_timer(algorithm)
         if with_doulion:
@@ -46,6 +48,11 @@ def graph_picker(graph_name):
         # undirected https://snap.stanford.edu/data/ca-AstroPh.html
         graph_path = "graphs/CA-AstroPh.txt"
         has_triangles = 1351441
+        is_directed = False
+
+    if graph_name == "grqc":
+        graph_path = "graphs/CA-GrQc.txt"
+        has_triangles = 48260
         is_directed = False
 
     elif graph_name == "emailcore":
