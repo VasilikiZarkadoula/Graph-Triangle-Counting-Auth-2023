@@ -61,20 +61,15 @@ class Triest:
 
 
     def _updateCounters(self, v, u):
-        neighborsSets = {
-            node: self.sample.neighborsInSample(node) for node in (v, u)}
-        (small, large) = (v, u) if neighborsSets[v] <= neighborsSets[u] else (u, v)
 
         weight = ((self.t - 1) * (self.t - 2)) / \
                  (self.memorySize * (self.memorySize - 1))
         weight = max(1., weight)
 
-        count_common_neighbors = 0
-        for commonNeighbor in neighborsSets[small]:
-            if commonNeighbor in neighborsSets[large]:
-                count_common_neighbors += 1
+        numOfCommonNeighbors = \
+            len(self.sample.neighborsInSample(v).intersection(self.sample.neighborsInSample(u)))
 
-        self.count_global_triangles += weight * count_common_neighbors
+        self.count_global_triangles += weight * numOfCommonNeighbors
 
 
     def _sampleStreamEdge(self):

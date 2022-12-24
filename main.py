@@ -13,7 +13,7 @@ def main():
     p = 0.8
 
     # select graph
-    graph_path, is_directed, has_triangles = graph_picker("grqc")
+    graph_path, is_directed, has_triangles = graph_picker("astroph")
     graph = Graph(graph_path)
 
     # run doulion
@@ -24,7 +24,7 @@ def main():
     # brute_force = BruteForce(graph, is_directed).brute_force
     # node_iterator = NodeIterator(graph, graph.graph_edges).node_iterator
     # compact_forward = CompactForward(graph).compact_forward
-    triest = Triest(graph.graphAsStream(), memorySize=15000).triest
+    triest = Triest(graph.graphAsStream(), memorySize=50000).triest
 
     # run list of algorithms
     for algorithm in [triest]:
