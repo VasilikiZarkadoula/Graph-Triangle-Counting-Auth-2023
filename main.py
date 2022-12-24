@@ -5,6 +5,8 @@ from source.doulion import Doulion
 from source.graph_class import Graph
 import time
 
+from source.triest import Triest
+
 
 def main():
     with_doulion = False
@@ -12,7 +14,7 @@ def main():
 
     # select graph
     graph_path, is_directed, has_triangles = graph_picker("grqc")
-    graph, graph_edges = Graph(graph_path)
+    graph = Graph(graph_path)
 
     # run doulion
     if with_doulion:
@@ -20,11 +22,12 @@ def main():
             Doulion(p, graph, is_directed).doulion)
 
     # brute_force = BruteForce(graph, is_directed).brute_force
-    node_iterator = NodeIterator(graph, graph_edges).node_iterator
+    # node_iterator = NodeIterator(graph, graph.graph_edges).node_iterator
     # compact_forward = CompactForward(graph).compact_forward
+    triest = Triest(graph.graphAsStream(), memorySize=15000).triest
 
     # run list of algorithms
-    for algorithm in [node_iterator]:
+    for algorithm in [triest]:
 
         triangles = run_with_timer(algorithm)
         if with_doulion:

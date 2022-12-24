@@ -1,0 +1,163 @@
+
+from source.brute_force import BruteForce
+from source.node_iterator import NodeIterator
+from source.compact_forward import CompactForward
+from source.doulion import Doulion
+from source.graph_class import Graph
+import time
+import numpy as np
+from matplotlib import pyplot as plt
+
+from source.triest import Triest
+
+# pick algorithm name
+BRUTE_FORCE = "Brute Force"
+NODE_ITERATOR = "Node Iterator"
+COMPACT_FORWARD = "Compact Forward"
+TRIEST = "Triest"
+DOULION = "Doulion"
+
+
+class RunAlgorithm:
+    def __init__(self, graph_name, selected_algorithm, with_doulion=False, approximationParam=None,
+                 plotApproximate=False):
+        def get_values(range_):
+            return np.arange(range_[0], range_[1], range_[2]) if plotApproximate or approximationParam is None else [
+                approximationParam]
+
+        self.selected_algorithm = selected_algorithm
+        # select graph
+        self.graph_path, self.is_directed, self.numOfTriangles = graph_picker(graph_name)
+        self.graph = None
+
+        if selected_algorithm == TRIEST:
+            self.with_doulion = False
+            self.graph = Graph(self.graph_path).graphAsStream()
+            self.memorySize = get_values((1000, len(self.graph), 1000))
+
+        elif with_doulion:
+            self.with_doulion = True
+            self.p = get_values((0.1, 1, 0.1))
+
+    def algorithm_picker(self, selected_algorithm, approximationParam=None):
+        if selected_algorithm == BRUTE_FORCE:
+            return BruteForce(self.graph, self.is_directed).brute_force
+
+        elif selected_algorithm == NODE_ITERATOR:
+            return NodeIterator(self.graph, self.graph.graph_edges).node_iterator
+
+        elif selected_algorithm == COMPACT_FORWARD:
+            return CompactForward(self.graph).compact_forward
+
+        elif selected_algorithm == TRIEST:
+            return Triest(self.graph, approximationParam).triest
+
+        elif selected_algorithm == DOULION:
+            return Doulion(approximationParam, self.graph, self.is_directed).doulion
+
+        else:
+            Exception(f"Wrong input: {self.selected_algorithm}")
+
+    def run(self, approximationParam):
+        doulion_runtime = f'{DOULION} runtime'
+        alg_runtime = f'{self.selected_algorithm} runtime'
+        results = {key: [] for key in [doulion_runtime, alg_runtime, 'Estimated triangles', 'Accuracy']}
+
+        for p in approximationParam:
+            self.graph = Graph(self.graph_path)
+
+            if self.with_doulion:
+                results[doulion_runtime].append(run_with_timer(
+                    self.algorithm_picker(DOULION, approximationParam=p))[1]
+                                                )
+
+            estimated_triangles, runtime = run_with_timer(
+                self.algorithm_picker(self.selected_algorithm)
+            )
+            accuracy = self.accuracy(estimated_triangles)
+
+            results[alg_runtime] = runtime
+            results['Estimated triangles'].append(estimated_triangles)
+            results['Accuracy'].append(accuracy)
+
+    def run_with_timer(self, algorithm):
+        print(algorithm.__name__)
+        start = time.time()
+        result = algorithm()
+        end = time.time()
+        return result, end - start
+
+
+def main():
+    with_doulion = False
+    p = 0.8
+
+    # select graph
+    graph_path, is_directed, has_triangles = graph_picker("grqc")
+    graph = Graph(graph_path)
+
+    # run doulion
+    if with_doulion:
+        run_with_timer(
+            Doulion(p, graph, is_directed).doulion)
+
+    # brute_force = BruteForce(graph, is_directed).brute_force
+    # node_iterator = NodeIterator(graph, graph.graph_edges).node_iterator
+    compact_forward = CompactForward(graph).compact_forward
+
+    # run list of algorithms
+    for algorithm in [compact_forward]:
+
+        triangles = run_with_timer(algorithm)
+        if with_doulion:
+            triangles *= 1 / p ** 3
+
+        accuracy = 100 - (abs(triangles - has_triangles) / has_triangles) * 100.0
+        print(f'\t# triangles = {int(triangles)}\n\taccuracy = {accuracy}')
+
+
+def run_with_timer(algorithm):
+    print(algorithm.__name__)
+    start = time.time()
+    result = algorithm()
+    end = time.time()
+    print(f'\telapsed time = {end - start}')
+    return result
+
+
+def graph_picker(graph_name):
+    if graph_name == "astroph":
+        # undirected https://snap.stanford.edu/data/ca-AstroPh.html
+        graph_path = "graphs/CA-AstroPh.txt"
+        numOfTriangles = 1351441
+        is_directed = False
+
+    if graph_name == "grqc":
+        graph_path = "graphs/CA-GrQc.txt"
+        numOfTriangles = 48260
+        is_directed = False
+
+    elif graph_name == "emailcore":
+        # directed https://snap.stanford.edu/data/email-Eu-core.html
+        graph_path = "graphs/email-Eu-core.txt"
+        numOfTriangles = 105461
+        is_directed = True
+
+    elif graph_name == "toyUndirected":
+        graph_path = "graphs/toy_example_3_triangles.txt"
+        numOfTriangles = 3
+        is_directed = False
+
+    elif graph_name == "toyDirected":
+        graph_path = "graphs/toy_example_directed.txt"
+        numOfTriangles = 2
+        is_directed = True
+
+    else:
+        Exception("Unknown dataset")
+
+    return graph_path, is_directed, numOfTriangles
+
+
+if __name__ == '__main__':
+    main()

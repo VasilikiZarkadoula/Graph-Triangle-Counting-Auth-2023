@@ -1,7 +1,10 @@
 import re
+from random import shuffle, seed
+
 
 class Graph:
     def __init__(self, graph_path):
+        seed(42)
         self.graph, self.graph_edges = self.read_edge_list(graph_path)
 
     def read_edge_list(self, path):
@@ -37,6 +40,10 @@ class Graph:
 
     def set_neighbors(self, v, neighbors):
         self.graph[v] = neighbors
+
+    def graphAsStream(self):
+        shuffle(self.graph_edges)
+        return self.graph_edges
 
     def toString(self):
         print(self.graph)
