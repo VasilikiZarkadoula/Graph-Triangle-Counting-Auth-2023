@@ -1,10 +1,9 @@
 import re
-from random import shuffle, seed
+from random import shuffle
 
 
 class Graph:
     def __init__(self, graph_path):
-        seed(42)
         self.graph, self.graph_edges = self.read_edge_list(graph_path)
 
     def read_edge_list(self, path):
