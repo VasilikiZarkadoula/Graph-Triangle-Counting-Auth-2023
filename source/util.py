@@ -79,7 +79,7 @@ def validate_args(args):
                           f"\nbut args.memorySize = {memorySize} invalid. Setting args.plotApproximate to True...", stacklevel=2)
 
     # plot non-approximate algorithm
-    if args.plotApproximate and (args.selected_algorithm != TRIEST or not args.with_doulion):
+    if args.plotApproximate and args.selected_algorithm != TRIEST and not args.with_doulion:
         args.plotApproximate = False
         warnings.warn(f"\nargs.plotApproximate == True but args.selected_algorithm = {args.selected_algorithm} "
                       f"is an exact algorithm."

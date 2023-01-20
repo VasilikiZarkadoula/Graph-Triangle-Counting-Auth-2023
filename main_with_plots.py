@@ -38,7 +38,7 @@ class RunAlgorithms:
 
         self.args.apprParamValues = \
             np.arange(start, end, step) if self.args.plotApproximate \
-            else [self.args[self.args.paramName]]
+            else [self.args.get(self.args.paramName, '')]
 
 
     def algorithm_picker(self, selected_algorithm):

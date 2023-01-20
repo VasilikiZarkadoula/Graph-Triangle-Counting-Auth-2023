@@ -75,7 +75,7 @@ def graph_picker(graph_name):
         is_directed = True
 
     else:
-        Exception("Unknown dataset")
+        raise Exception("Unknown dataset")
 
     return graph_path, is_directed, has_triangles
 
