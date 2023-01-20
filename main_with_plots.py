@@ -1,7 +1,12 @@
+import json
 import time
+from os import mkdir
+from os.path import exists
+
 import numpy as np
 from random import seed
 from matplotlib import pyplot as plt
+from tqdm import tqdm
 
 from source.util import *
 from source.brute_force import BruteForce
@@ -11,20 +16,24 @@ from source.doulion import Doulion
 from source.triest import Triest
 from source.graph_class import Graph
 
+RESULTS_DIR  = 'results/'
 
 class RunAlgorithms:
-    def __init__(self, args):
-        self.args = args
-        self.args.graph_path, self.args.is_directed, self.args.numOfTriangles = \
-            graph_picker(self.args.graph_name)
-        self.graph = None
+    def __init__(self, args, saved_results_file_path=None):
 
-        self.setup()
-        results = self.run_iterations()
-        if self.args.plotApproximate:
-            self.plotApproximate(results)
+        if saved_results_file_path is not None:
+            self.print_saved_results(saved_results_file_path)
         else:
-            [print(f'{key} : {value[0]}') for key, value in results.items()]
+
+            self.args = args
+            self.args.graph_path, self.args.is_directed, self.args.numOfTriangles = \
+                graph_picker(self.args.graph_name)
+            self.graph = None
+
+            self.setup()
+            self.results = self.run_iterations()
+            self.save_results()
+            self.show_results()
 
 
     def setup(self):
@@ -65,7 +74,7 @@ class RunAlgorithms:
         results = {key: [] for key in [f'{DOULION} runtime', f'{self.args.selected_algorithm} runtime',
                                        'Estimated Triangles', 'Accuracy']}
 
-        for approximationParamValue in self.args.apprParamValues:
+        for approximationParamValue in tqdm(self.args.apprParamValues):
             self.args[self.args.paramName] = approximationParamValue
             values = self.run_triangle_counting_alg_iteration()
 
@@ -115,7 +124,33 @@ class RunAlgorithms:
         return 100 - (abs(estimated_triangles - self.args.numOfTriangles) / self.args.numOfTriangles) * 100.0
 
 
-    def plotApproximate(self, results):
+# ============================================================================================================
+
+    def show_results(self):
+        if self.args.plotApproximate:
+            self.plotApproximate()
+        else:
+            [print(f'{key} : {value[0]}') for key, value in self.results.items()]
+
+    def save_results(self):
+        if not exists(RESULTS_DIR[:-1]):
+            mkdir(RESULTS_DIR[:-1])
+        file_name = f"{RESULTS_DIR}{self.args.graph_name}_alg-{self.args.selected_algorithm}_doulion-{self.args.with_doulion}_{str(time.time())[-5:]}.json"
+
+        with open(file_name, 'w') as file:
+            self.args.apprParamValues = list(self.args.apprParamValues)
+            json.dump({'args': self.args, 'results': self.results}, file, indent=4)
+
+    def print_saved_results(self, saved_results_file_path):
+        print('\nFILE RESULTS:', saved_results_file_path)
+        with open(saved_results_file_path, 'r') as file:
+            data = json.load(file)
+        self.args = dotdict(data['args'])
+        self.results = data['results']
+        self.args.toString()
+        self.show_results()
+
+    def plotApproximate(self):
 
         color = ['tab:blue', 'tab:cyan', 'tab:green', 'tab:orange']
         plt.style.use(plt.style.library['seaborn-whitegrid'])
@@ -123,12 +158,12 @@ class RunAlgorithms:
         x = self.args.apprParamValues
         xlabel = self.args.paramName
 
-        fig, axs = plt.subplots(nrows=len(results), ncols=1, figsize=(7, 10), squeeze=True)
+        fig, axs = plt.subplots(nrows=len(self.results), ncols=1, figsize=(7, 10), squeeze=True)
         plt.rcParams.update({'font.size': 12})
         plt.xticks(fontsize=12)
         plt.yticks(fontsize=12)
 
-        for i, (label, values) in enumerate(results.items()):
+        for i, (label, values) in enumerate(self.results.items()):
             print(label, values)
             axs[i].plot(x, values, color=color[i])
             axs[i].set_xticks(x)
@@ -136,8 +171,8 @@ class RunAlgorithms:
 
         plt.show()
 
- # ---------------------------------------------------------------------------------------
 
+# ============================================================================================================
 
 
 def main():
@@ -164,11 +199,18 @@ def main():
     # Run multiple iteration of an approximation alg with incremental approx param values
     # and plot results (for Doulion or Triest)? True or False
     # if True default approx param value is ignored
-    args.plotApproximate = False
+    args.plotApproximate = True
 
     validate_args(args)
+    # print args:
     args.toString()
-    RunAlgorithms(args)
+
+    # Uncomment rerun algorithm according to args
+    # RunAlgorithms(args)
+
+    # load results from file (pycharm autocomplete). Uncomment to run
+    saved_results_file_path = 'results/ca-AstroPh_alg-Compact Forward_doulion-True_57266.json'
+    # RunAlgorithms(None, saved_results_file_path)
 
 
 if __name__ == '__main__':

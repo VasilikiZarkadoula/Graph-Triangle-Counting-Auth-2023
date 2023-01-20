@@ -1,11 +1,11 @@
 import warnings
 
 # available graphs
-ASTROPH = 1
-GRQC = 2
-EMAILCORE = 3
-TOY_UNDIRECTED = 4
-TOY_DIRECTED = 5
+ASTROPH = 'ca-AstroPh'
+GRQC = 'CA-GrQc'
+EMAILCORE = 'email-Eu-core'
+TOY_UNDIRECTED = 'toy_example_3_triangles'
+TOY_DIRECTED = 'toy_example_directed'
 AVAILABLE_DATASETS = {ASTROPH, GRQC, EMAILCORE, TOY_UNDIRECTED, TOY_DIRECTED}
 
 # available algorithms
@@ -23,6 +23,7 @@ class dotdict(dict):
     __delattr__ = dict.__delitem__
 
     def toString(self):
+        print()
         [print(key, value) for key, value in self.items()]
         print()
 
