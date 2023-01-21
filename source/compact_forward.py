@@ -58,9 +58,6 @@ class CompactForward:
                     u_ = Nu.next()   # u'
                     v_ = Nv.next()   # v'
 
-                    if u_ is None:   # u has no outgoing edges
-                        break
-
                     while Nu.has_next() and Nv.has_next():                    # 3ab1
                         if self.order[v_] < self.order[v] > self.order[u_]:   # 3ab2
 
