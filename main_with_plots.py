@@ -82,7 +82,7 @@ class RunAlgorithms:
                 results[key].append(values[i])
 
             print(approximationParamValue)
-            [print(f'{key} : {value[0]}') for key, value in results.items()]
+            [print(f'{key} : {value[-1]}') for key, value in results.items()]
 
         if not self.args.with_doulion:
             del results[f'{DOULION} runtime']
