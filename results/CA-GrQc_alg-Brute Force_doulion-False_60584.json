@@ -1,0 +1,28 @@
+{
+    "args": {
+        "graph_name": "CA-GrQc",
+        "selected_algorithm": "Brute Force",
+        "with_doulion": false,
+        "p": 0.01,
+        "memorySize": 3000,
+        "plotApproximate": false,
+        "graph_path": "graphs/CA-GrQc.txt",
+        "is_directed": false,
+        "numOfTriangles": 48260,
+        "apprParamValues": [
+            ""
+        ],
+        "null": ""
+    },
+    "results": {
+        "Brute Force runtime": [
+            1089.3448781967163
+        ],
+        "Estimated Triangles": [
+            48260
+        ],
+        "Accuracy": [
+            100.0
+        ]
+    }
+}

@@ -43,7 +43,7 @@ class RunAlgorithms:
             start, end, step, self.args.paramName = 1000, len(self.graph), 1000, 'memorySize'
 
         elif self.args.with_doulion:
-            start, end, step, self.args.paramName = 0.1, 1, 0.1, 'p'
+            start, end, step, self.args.paramName = 0.3, 1, 0.3, 'p'
 
         self.args.apprParamValues = \
             np.arange(start, end, step) if self.args.plotApproximate \
@@ -81,7 +81,7 @@ class RunAlgorithms:
             for i, key in enumerate(results.keys()):
                 results[key].append(values[i])
 
-            print(approximationParamValue)
+            print('\n', approximationParamValue)
             [print(f'{key} : {value[-1]}') for key, value in results.items()]
 
         if not self.args.with_doulion:
@@ -186,15 +186,15 @@ def main():
 
     # Selected dataset (as a variable, not str) for graph_picker
     # (see available graphs at util.py)
-    args.graph_name = ASTROPH
+    args.graph_name = GRQC
 
     # BRUTE_FORCE, NODE_ITERATOR, COMPACT_FORWARD or TRIEST (as a variable not str, capital)
-    args.selected_algorithm = COMPACT_FORWARD
+    args.selected_algorithm = BRUTE_FORCE
 
     # Sparcify graph? True or False
-    args.with_doulion = True
+    args.with_doulion = False
     # Doulion approximation parameter: Coin toss success probability. 0 <= p <= 1
-    args.p = 0.8
+    args.p = 0.01
 
     # Triest approximation parameter: sample size (# sampled edges). Integer
     args.memorySize = 3000

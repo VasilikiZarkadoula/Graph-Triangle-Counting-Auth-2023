@@ -9,8 +9,8 @@ from source.triest import Triest
 
 
 def main():
-    with_doulion = False
-    p = 0.8
+    with_doulion = True
+    p = 0.1
 
     # select graph
     graph_path, is_directed, has_triangles = graph_picker("astroph")
