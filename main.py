@@ -22,12 +22,12 @@ def main():
             Doulion(p, graph, is_directed).doulion)
 
     # brute_force = BruteForce(graph, is_directed).brute_force
-    # node_iterator = NodeIterator(graph, graph.graph_edges).node_iterator
+    node_iterator = NodeIterator(graph, graph.graph_edges).node_iterator
     # compact_forward = CompactForward(graph).compact_forward
-    triest = Triest(graph.graphAsStream(), memorySize=50000).triest
+    # triest = Triest(graph.graphAsStream(), memorySize=50000).triest
 
     # run list of algorithms
-    for algorithm in [triest]:
+    for algorithm in [node_iterator]:
 
         triangles = run_with_timer(algorithm)
         if with_doulion:
@@ -53,7 +53,7 @@ def graph_picker(graph_name):
         has_triangles = 1351441
         is_directed = False
 
-    if graph_name == "grqc":
+    elif graph_name == "grqc":
         graph_path = "graphs/CA-GrQc.txt"
         has_triangles = 48260
         is_directed = False

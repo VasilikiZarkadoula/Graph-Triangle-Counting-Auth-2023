@@ -81,6 +81,9 @@ class RunAlgorithms:
             for i, key in enumerate(results.keys()):
                 results[key].append(values[i])
 
+            print(approximationParamValue)
+            [print(f'{key} : {value[0]}') for key, value in results.items()]
+
         if not self.args.with_doulion:
             del results[f'{DOULION} runtime']
 
@@ -206,7 +209,7 @@ def main():
     args.toString()
 
     # Uncomment rerun algorithm according to args
-    # RunAlgorithms(args)
+    RunAlgorithms(args)
 
     # load results from file (pycharm autocomplete). Uncomment to run
     saved_results_file_path = 'results/ca-AstroPh_alg-Compact Forward_doulion-True_57266.json'
