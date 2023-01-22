@@ -1,3 +1,5 @@
+from tqdm import tqdm
+
 
 class NeighborsIterator:
     def __init__(self, neighbors):
@@ -17,7 +19,6 @@ class NeighborsIterator:
 
 
 class CompactForward:
-    # TODO : check directed graphs
 
     def __init__(self, graph):
         self.graph = graph
@@ -44,29 +45,19 @@ class CompactForward:
         self.order = self.degree_order()
         self.sort_nodes(nodes, for_nodes=True)  # 1
 
-        #print(self.order)
         for v in nodes:     # 2
             self.sort_nodes(self.graph.neighbors(v))
 
-        #print(self.order)
-
-        for v in nodes:     # 3
-            #print('v=', v, self.order[v])
+        for v in tqdm(nodes):     # 3
             for u in self.graph.neighbors(v):   # 3a
-                #print('\tu=', u, self.order[u])
                 if self.order[u] > self.order[v]:
 
                     Nu = NeighborsIterator(self.graph.neighbors(u))
                     Nv = NeighborsIterator(self.graph.neighbors(v))
 
-                    #print('\tNu =', Nu.neighbors); print('\tNv=', Nv.neighbors)
-
                     # 3aa
                     u_ = Nu.next()   # u'
                     v_ = Nv.next()   # v'
-
-                    #print(f"\t\tv'= {v_}  {self.order[v_]}")
-                    #print(f"\t\tu'= {u_}  {self.order[u_]}")
 
                     while Nu.has_next() and Nv.has_next():                    # 3ab1
                         if self.order[v_] < self.order[v] > self.order[u_]:   # 3ab2
@@ -76,16 +67,10 @@ class CompactForward:
                             elif self.order[u_] > self.order[v_]:             # 3abb
                                 v_ = Nv.next()
                             else:                                             # 3abc
-                                #print(u_, v_)
                                 count_triangles += 1
                                 u_ = Nu.next()
                                 v_ = Nv.next()
-
-                            #print(f"\t\tv'= {v_}  {self.order[v_]}")
-                            #print(f"\t\tu'= {u_}  {self.order[u_]}")
-
                         else:
-                            #print("BREAK")
                             break
         return count_triangles
 

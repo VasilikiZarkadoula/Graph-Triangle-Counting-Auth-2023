@@ -6,6 +6,7 @@ from source.graph_class import Graph
 import time
 
 from source.triest import Triest
+from source.util import *
 
 
 def main():
@@ -13,15 +14,16 @@ def main():
     p = 0.1
 
     # select graph
-    graph_path, is_directed, has_triangles = graph_picker("astroph")
-    graph = Graph(graph_path)
+    # saved_as_directed = True if only (v,u) is included in the file, not its symmetric (u,v)
+    graph_path, saved_as_directed, has_triangles = graph_picker(ASTROPH)
+    graph = Graph(graph_path, saved_as_directed)
 
     # run doulion
     if with_doulion:
         run_with_timer(
-            Doulion(p, graph, is_directed).doulion)
+            Doulion(p, graph).doulion)
 
-    # brute_force = BruteForce(graph, is_directed).brute_force
+    # brute_force = BruteForce(graph).brute_force
     node_iterator = NodeIterator(graph, graph.graph_edges).node_iterator
     # compact_forward = CompactForward(graph).compact_forward
     # triest = Triest(graph.graphAsStream(), memorySize=50000).triest
@@ -45,39 +47,6 @@ def run_with_timer(algorithm):
     print(f'\telapsed time = {end - start}')
     return result
 
-
-def graph_picker(graph_name):
-    if graph_name == "astroph":
-        # undirected https://snap.stanford.edu/data/ca-AstroPh.html
-        graph_path = "graphs/CA-AstroPh.txt"
-        has_triangles = 1351441
-        is_directed = False
-
-    elif graph_name == "grqc":
-        graph_path = "graphs/CA-GrQc.txt"
-        has_triangles = 48260
-        is_directed = False
-
-    elif graph_name == "emailcore":
-        # directed https://snap.stanford.edu/data/email-Eu-core.html
-        graph_path = "graphs/email-Eu-core.txt"
-        has_triangles = 105461
-        is_directed = True
-
-    elif graph_name == "toyUndirected":
-        graph_path = "graphs/toy_example_3_triangles.txt"
-        has_triangles = 3
-        is_directed = False
-
-    elif graph_name == "toyDirected":
-        graph_path = "graphs/toy_example_directed.txt"
-        has_triangles = 2
-        is_directed = True
-
-    else:
-        raise Exception("Unknown dataset")
-
-    return graph_path, is_directed, has_triangles
 
 
 if __name__ == '__main__':

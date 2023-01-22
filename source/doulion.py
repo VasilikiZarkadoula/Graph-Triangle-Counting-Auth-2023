@@ -2,9 +2,10 @@ import random
 
 
 class Doulion:
-    def __init__(self, p, graph, is_directed):
+    def __init__(self, p, graph, is_directed=False):
         self.p = p
         self.graph = graph
+        self.nodes = self.graph.nodes()
         self.undirected = not is_directed
         self.toDel = None
 
@@ -23,8 +24,8 @@ class Doulion:
 
 
     def run_step(self, step):
-        for v, neighbors in self.graph.graph.items():
-            step(v, neighbors)
+        for v in self.nodes:
+            step(v, self.graph.neighbors(v))
 
 
     def undirected_toss_coins(self, v, neighbors):
@@ -43,17 +44,17 @@ class Doulion:
         """
         Step 2 for undirected:
         For each node v, adj list = neighbors u : coin toss (v,u) (when u>v)
-                                                         or (u,v) (when v>u) not a failure """
+                                                         or (u,v) (when v>u) not a failure"""
         self.graph.set_neighbors(v,
-                # 0.04 sec faster:
                 [u for u in neighbors if (u > v and u not in self.toDel[v]) or (v > u and v not in self.toDel[u])]
-                # [u for u in neighbors if (u not in self.toDel[v]) and (v not in self.toDel[u])]
         )
+        self.graph.delete_isolated_node(v)
 
     def directed_sparsify(self, v, neighbors):
         # For each node v, adj list = neighbors u whose coin toss isn't a failure
         self.graph.set_neighbors(v,
                                  [u for u in neighbors if not self.failure_coin()])
+        self.graph.delete_isolated_node(v)
 
     def failure_coin(self):
         return random.random() > self.p

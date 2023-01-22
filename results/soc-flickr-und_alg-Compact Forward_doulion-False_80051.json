@@ -1,0 +1,28 @@
+{
+    "args": {
+        "graph_name": "soc-flickr-und",
+        "selected_algorithm": "Compact Forward",
+        "with_doulion": false,
+        "p": 0.6,
+        "memorySize": "3000",
+        "plotApproximate": false,
+        "graph_path": "graphs/soc-flickr-und.txt",
+        "saved_as_directed": true,
+        "numOfTriangles": 19970848,
+        "apprParamValues": [
+            ""
+        ],
+        "null": ""
+    },
+    "results": {
+        "Compact Forward runtime": [
+            2812.3475906848907
+        ],
+        "Estimated Triangles": [
+            548658705
+        ],
+        "Accuracy": [
+            -2547.2979865451885
+        ]
+    }
+}
