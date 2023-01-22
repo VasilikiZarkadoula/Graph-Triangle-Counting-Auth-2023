@@ -51,7 +51,7 @@ class RunAlgorithms:
             start, end, step, self.args.paramName = 1000, len(self.graph), 1000, 'memorySize'
 
         elif self.args.with_doulion:
-            start, end, step, self.args.paramName = 0.1, 1, 0.1, 'p'
+            start, end, step, self.args.paramName = 0.5, 1, 0.05, 'p'
 
         self.args.apprParamValues = \
             np.arange(start, end, step) if self.args.plotApproximate \
