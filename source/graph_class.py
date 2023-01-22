@@ -15,7 +15,7 @@ class Graph:
         graph_edges = []
         with open(path, "r") as edges:
             for edge in edges:
-                if edge.startswith('#'):  # comment line
+                if not edge[0].isdigit():  # comment line
                     continue
 
                 edge = re.split('\s+', edge)

@@ -4,13 +4,13 @@ import warnings
 # to add a new graph define a variable with the file name. txt extension is assumed
 GRQC = 'CA-GrQc'  # small
 ASTROPH = 'ca-AstroPh'  # medium
-SOC_FLICKR = 'soc-flickr-und'  # large
+YOUTUBE = 'com-youtube.ungraph'
 EMAILCORE = 'email-Eu-core'  # directed
 TOY_UNDIRECTED = 'toy_example_3_triangles'  # for testing
 TOY_DIRECTED = 'toy_example_directed'  # for testing
 
 # a newly added graph must also be included in this list
-AVAILABLE_DATASETS = {ASTROPH, GRQC, SOC_FLICKR, EMAILCORE, TOY_UNDIRECTED, TOY_DIRECTED}
+AVAILABLE_DATASETS = {ASTROPH, GRQC, YOUTUBE, EMAILCORE, TOY_UNDIRECTED, TOY_DIRECTED}
 
 # available algorithms
 BRUTE_FORCE = "Brute Force"
@@ -42,8 +42,8 @@ def graph_picker(graph_name):
         numOfTriangles = 48260
         saved_as_directed = False
 
-    elif graph_name == SOC_FLICKR:
-        numOfTriangles = 0  # 548658705 ?
+    elif graph_name == YOUTUBE:
+        numOfTriangles = 3056386
         saved_as_directed = True
 
     elif graph_name == EMAILCORE:

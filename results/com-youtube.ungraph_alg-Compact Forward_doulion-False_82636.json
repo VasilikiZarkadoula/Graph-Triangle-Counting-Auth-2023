@@ -1,0 +1,28 @@
+{
+    "args": {
+        "graph_name": "com-youtube.ungraph",
+        "selected_algorithm": "Compact Forward",
+        "with_doulion": false,
+        "p": 0.8,
+        "memorySize": "3000",
+        "plotApproximate": false,
+        "graph_path": "graphs/com-youtube.ungraph.txt",
+        "saved_as_directed": true,
+        "numOfTriangles": 3056386,
+        "apprParamValues": [
+            ""
+        ],
+        "null": ""
+    },
+    "results": {
+        "Compact Forward runtime": [
+            40.34373903274536
+        ],
+        "Estimated Triangles": [
+            3056386
+        ],
+        "Accuracy": [
+            100.0
+        ]
+    }
+}

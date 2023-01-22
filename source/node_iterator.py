@@ -1,5 +1,7 @@
 from itertools import combinations
 
+from tqdm import tqdm
+
 
 class NodeIterator:
 
@@ -9,7 +11,7 @@ class NodeIterator:
 
     def node_iterator(self):
         count_triangles = 0
-        for node in self.graph.nodes():
+        for node in tqdm(self.graph.nodes()):
             nbrs_pair = list(combinations(self.graph.neighbors(node), 2))
             for u, v in nbrs_pair:
                 # check if the pair is also an edge in the graph
