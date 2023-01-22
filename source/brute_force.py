@@ -1,3 +1,6 @@
+from tqdm import tqdm
+
+
 class BruteForce:
 
     def __init__(self, graph, is_directed = False):
@@ -9,7 +12,7 @@ class BruteForce:
         nodes = len(adj)
         count_triangle = 0
 
-        for i in range(nodes):
+        for i in tqdm(range(nodes)):
             for j in range(i + 1, nodes):
                 for k in range(j + 1, nodes):
 

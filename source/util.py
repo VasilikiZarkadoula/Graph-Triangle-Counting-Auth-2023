@@ -8,9 +8,10 @@ YOUTUBE = 'com-youtube.ungraph'
 EMAILCORE = 'email-Eu-core'  # directed
 TOY_UNDIRECTED = 'toy_example_3_triangles'  # for testing
 TOY_DIRECTED = 'toy_example_directed'  # for testing
+PRESENTATION_EX = 'presentation-example'
 
 # a newly added graph must also be included in this list
-AVAILABLE_DATASETS = {ASTROPH, GRQC, YOUTUBE, EMAILCORE, TOY_UNDIRECTED, TOY_DIRECTED}
+AVAILABLE_DATASETS = {ASTROPH, GRQC, YOUTUBE, EMAILCORE, TOY_UNDIRECTED, TOY_DIRECTED, PRESENTATION_EX}
 
 # available algorithms
 BRUTE_FORCE = "Brute Force"
@@ -59,6 +60,11 @@ def graph_picker(graph_name):
         # directed graph
         numOfTriangles = 2
         saved_as_directed = True
+
+    elif graph_name == PRESENTATION_EX:
+        # directed graph
+        numOfTriangles = 3
+        saved_as_directed = False
 
     else:
         raise Exception("Unknown dataset")

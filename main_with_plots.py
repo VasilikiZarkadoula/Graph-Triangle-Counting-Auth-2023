@@ -51,7 +51,7 @@ class RunAlgorithms:
             start, end, step, self.args.paramName = 1000, len(self.graph), 1000, 'memorySize'
 
         elif self.args.with_doulion:
-            start, end, step, self.args.paramName = 0.5, 1, 0.05, 'p'
+            start, end, step, self.args.paramName = 0.1, 1, 0.1, 'p'
 
         self.args.apprParamValues = \
             np.arange(start, end, step) if self.args.plotApproximate \
@@ -218,15 +218,15 @@ def main():
 
     # Selected dataset (as a variable, not str) for graph_picker
     # (see available graphs at util.py)
-    args.graph_name = YOUTUBE
+    args.graph_name = ASTROPH
 
     # BRUTE_FORCE, NODE_ITERATOR, COMPACT_FORWARD or TRIEST (as a variable not str, capital)
-    args.selected_algorithm = NODE_ITERATOR
+    args.selected_algorithm = COMPACT_FORWARD
 
     # Sparcify graph? True or False
     args.with_doulion = True
     # Doulion approximation parameter: Coin toss success probability. 0 <= p <= 1
-    args.p = 0.8
+    args.p = 0.1
 
     # Triest approximation parameter: sample size (# sampled edges). Integer
     args.memorySize = 3000
@@ -234,7 +234,7 @@ def main():
     # Run multiple iteration of an approximation alg with incremental approx param values
     # and plot results (for Doulion or Triest)? True or False
     # if True default approx param value is ignored
-    args.plotApproximate = True
+    args.plotApproximate = False
 
     validate_args(args)
     # print args:

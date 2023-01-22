@@ -17,7 +17,6 @@ class NeighborsIterator:
 
 
 class CompactForward:
-    # TODO : check directed graphs
 
     def __init__(self, graph):
         self.graph = graph
@@ -42,9 +41,9 @@ class CompactForward:
         count_triangles = 0
         nodes = self.graph.nodes()
         self.order = self.degree_order()
+        #print(self.order)
         self.sort_nodes(nodes, for_nodes=True)  # 1
 
-        #print(self.order)
         for v in nodes:     # 2
             self.sort_nodes(self.graph.neighbors(v))
 
@@ -76,7 +75,7 @@ class CompactForward:
                             elif self.order[u_] > self.order[v_]:             # 3abb
                                 v_ = Nv.next()
                             else:                                             # 3abc
-                                #print(u_, v_)
+                                #print('TRIANGLE ', v, u, u_)
                                 count_triangles += 1
                                 u_ = Nu.next()
                                 v_ = Nv.next()
