@@ -7,15 +7,17 @@ ASTROPH = 'ca-AstroPh'              # medium
 YOUTUBE = 'com-youtube.ungraph'     # large
 EMAILCORE = 'email-Eu-core'         # directed
 DENSE_GENER = 'dense_generated'     # dense
+SPARCE_ROADS = 'roadNet-PA'         # sparce
+
 
 TOY_UNDIRECTED = 'toy_example_3_triangles'  # for testing
 TOY_DIRECTED = 'toy_example_directed'  # for testing
-PRESENTATION_EX = 'presentation-example'
+
 
 # a newly added graph must also be included in this list
 AVAILABLE_DATASETS = {ASTROPH, GRQC, YOUTUBE,
-                      EMAILCORE, DENSE_GENER,
-                      TOY_UNDIRECTED, TOY_DIRECTED, PRESENTATION_EX}
+                      EMAILCORE, DENSE_GENER, SPARCE_ROADS,
+                      TOY_UNDIRECTED, TOY_DIRECTED}
 
 # available algorithms
 BRUTE_FORCE = "Brute Force"
@@ -60,6 +62,11 @@ def graph_picker(graph_name):
         numOfTriangles = 18981254
         saved_as_directed = True
 
+    elif graph_name == SPARCE_ROADS:
+        numOfTriangles = 67150
+        saved_as_directed = False
+
+    # ---------------------------------
     elif graph_name == TOY_UNDIRECTED:
         numOfTriangles = 3
         saved_as_directed = False
@@ -68,11 +75,6 @@ def graph_picker(graph_name):
         # directed graph
         numOfTriangles = 2
         saved_as_directed = True
-
-    elif graph_name == PRESENTATION_EX:
-        # directed graph
-        numOfTriangles = 3
-        saved_as_directed = False
 
     else:
         raise Exception("Unknown dataset")

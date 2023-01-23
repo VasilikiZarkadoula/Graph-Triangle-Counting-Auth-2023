@@ -1,0 +1,28 @@
+{
+    "args": {
+        "graph_name": "CA-GrQc",
+        "selected_algorithm": "Node Iterator",
+        "with_doulion": false,
+        "p": 0.1,
+        "memorySize": "3000",
+        "plotApproximate": false,
+        "graph_path": "graphs/CA-GrQc.txt",
+        "saved_as_directed": false,
+        "numOfTriangles": 48260,
+        "apprParamValues": [
+            ""
+        ],
+        "null": ""
+    },
+    "results": {
+        "Node Iterator runtime": [
+            0.01742410659790039
+        ],
+        "Estimated Triangles": [
+            48260
+        ],
+        "Accuracy": [
+            100.0
+        ]
+    }
+}

@@ -1,5 +1,5 @@
 from source.brute_force import BruteForce
-from source.node_iterator import NodeIterator
+from source.node_iterator_version2 import NodeIterator
 from source.compact_forward import CompactForward
 from source.doulion import Doulion
 from source.graph_class import Graph
@@ -10,13 +10,13 @@ from source.util import *
 
 
 def main():
-    with_doulion = True
+    with_doulion = False
     p = 0.1
 
     # select graph
     # saved_as_directed = True if only (v,u) is included in the file, not its symmetric (u,v)
-    graph_path, saved_as_directed, has_triangles = graph_picker(ASTROPH)
-    graph = Graph(graph_path, saved_as_directed)
+    graph_path, saved_as_directed, has_triangles = graph_picker(YOUTUBE)
+    graph = Graph(graph_path, saved_as_directed, triest=False)
 
     # run doulion
     if with_doulion:
@@ -24,9 +24,9 @@ def main():
             Doulion(p, graph).doulion)
 
     # brute_force = BruteForce(graph).brute_force
-    node_iterator = NodeIterator(graph, graph.graph_edges).node_iterator
+    node_iterator = NodeIterator(graph).node_iterator
     # compact_forward = CompactForward(graph).compact_forward
-    # triest = Triest(graph.graphAsStream(), memorySize=50000).triest
+    # triest = Triest(graph.graph, memorySize=50000).triest
 
     # run list of algorithms
     for algorithm in [node_iterator]:

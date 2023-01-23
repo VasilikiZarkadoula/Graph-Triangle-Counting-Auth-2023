@@ -9,7 +9,7 @@ from matplotlib import pyplot as plt
 
 from source.util import *
 from source.brute_force import BruteForce
-from source.node_iterator import NodeIterator
+from source.node_iterator_version2 import NodeIterator
 from source.compact_forward import CompactForward
 from source.doulion import Doulion
 from source.triest import Triest
@@ -47,7 +47,7 @@ class RunAlgorithms:
     def setup(self):
 
         if self.args.selected_algorithm == TRIEST:
-            self.graph = Graph(self.args.graph_path, self.args.saved_as_directed).graphAsStream()
+            self.graph = Graph(self.args.graph_path, self.args.saved_as_directed, triest=True).graph
             start, end, step, self.args.paramName = 1000, len(self.graph), 1000, 'memorySize'
 
         elif self.args.with_doulion:
@@ -63,7 +63,7 @@ class RunAlgorithms:
             return BruteForce(self.graph).brute_force
 
         elif selected_algorithm == NODE_ITERATOR:
-            return NodeIterator(self.graph, self.graph.graph_edges).node_iterator
+            return NodeIterator(self.graph).node_iterator
 
         elif selected_algorithm == COMPACT_FORWARD:
             return CompactForward(self.graph).compact_forward
@@ -218,10 +218,10 @@ def main():
 
     # Selected dataset (as a variable, not str) for graph_picker
     # (see available graphs at util.py)
-    args.graph_name = DENSE_GENER
+    args.graph_name = SPARCE_ROADS
 
     # BRUTE_FORCE, NODE_ITERATOR, COMPACT_FORWARD or TRIEST (as a variable not str, capital)
-    args.selected_algorithm = BRUTE_FORCE
+    args.selected_algorithm = NODE_ITERATOR
 
     # Sparcify graph? True or False
     args.with_doulion = True

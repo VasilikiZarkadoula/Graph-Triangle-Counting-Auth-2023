@@ -1,0 +1,28 @@
+{
+    "args": {
+        "graph_name": "roadNet-PA",
+        "selected_algorithm": "Compact Forward",
+        "with_doulion": false,
+        "p": 0.1,
+        "memorySize": "3000",
+        "plotApproximate": false,
+        "graph_path": "graphs/roadNet-PA.txt",
+        "saved_as_directed": false,
+        "numOfTriangles": 67150,
+        "apprParamValues": [
+            ""
+        ],
+        "null": ""
+    },
+    "results": {
+        "Compact Forward runtime": [
+            6.106237173080444
+        ],
+        "Estimated Triangles": [
+            67150
+        ],
+        "Accuracy": [
+            100.0
+        ]
+    }
+}
