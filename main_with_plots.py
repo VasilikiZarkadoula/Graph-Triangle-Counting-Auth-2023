@@ -17,7 +17,7 @@ from source.graph_class import Graph
 
 RESULTS_DIR  = 'results/'
 TRIEST_ACCURACY_THRS = 99.6
-MEMORY_LIMIT = 15000
+MEMORY_LIMIT = 20000
 
 class RunAlgorithms:
     def __init__(self, args, saved_results_file_path=None):
@@ -218,10 +218,10 @@ def main():
 
     # Selected dataset (as a variable, not str) for graph_picker
     # (see available graphs at util.py)
-    args.graph_name = YOUTUBE
+    args.graph_name = DENSE_GENER
 
     # BRUTE_FORCE, NODE_ITERATOR, COMPACT_FORWARD or TRIEST (as a variable not str, capital)
-    args.selected_algorithm = COMPACT_FORWARD
+    args.selected_algorithm = TRIEST
 
     # Sparcify graph? True or False
     args.with_doulion = True

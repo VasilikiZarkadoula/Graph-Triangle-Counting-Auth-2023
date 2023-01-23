@@ -49,12 +49,13 @@ class Graph:
 
                 edge = re.split('\s+', edge)
                 v, u = (int(edge[i]) for i in range(2))  # v -> u
-                graph_edges.append((v, u))
 
                 if saved_as_directed:
-                    # Graph is considered undirected => also include (u,v)
-                    # since it is not present in the file
-                    graph_edges.append((u, v))
+                    x = min(v, u)
+                    y = max(u, v)
+                    graph_edges.append((x, y))
+                elif v < u:
+                    graph_edges.append((v, u))
 
         shuffle(graph_edges)
         return graph_edges

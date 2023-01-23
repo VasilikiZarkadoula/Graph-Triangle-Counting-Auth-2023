@@ -52,11 +52,10 @@ class Triest:
 
     def triest(self):
         for v, u in self.graphStream :
-            if v < u:
-                self.t += 1
-                self._updateCounters(v, u)
-                if self._sampleStreamEdge():
-                    self.sample.insertToSample(v, u)
+            self.t += 1
+            self._updateCounters(v, u)
+            if self._sampleStreamEdge():
+                self.sample.insertToSample(v, u)
         return self.count_global_triangles
 
 
