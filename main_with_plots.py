@@ -5,43 +5,32 @@ from os.path import exists
 
 import numpy as np
 from random import seed
-from matplotlib import pyplot as plt
 
-from source.util import *
+from other.plot_results import PlotResults
+from other.util import *
 from source.brute_force import BruteForce
 from source.node_iterator_version2 import NodeIterator
 from source.compact_forward import CompactForward
 from source.doulion import Doulion
 from source.triest import Triest
-from source.graph_class import Graph
+from other.graph_class import Graph
 
 RESULTS_DIR  = 'results/'
 TRIEST_ACCURACY_THRS = 99.6
 MEMORY_LIMIT = 20000
 
 class RunAlgorithms:
-    def __init__(self, args, saved_results_file_path=None):
-        """
-        :param args: dotdict with the parameters
-        :param saved_results_file_path: a file path where the results of a
-                previous run are saved. The results are printed. The plots
-                are also drawn if multiple iterations of an approx algo ran
-                (args.plotApproximate values was True)
-        """
-
+    def __init__(self, args):
+        self.graph = None
         self.results = None
-        if saved_results_file_path is not None:
-            self.print_saved_results(saved_results_file_path)
-        else:
-            self.args = args
-            self.args.graph_path, self.args.saved_as_directed, self.args.numOfTriangles = \
-                graph_picker(self.args.graph_name)
-            self.graph = None
 
-            self.setup()
-            self.run_iterations()
-            self.save_results()
-            self.show_results()
+        self.args = args
+        self.args.graph_path, self.args.saved_as_directed, self.args.numOfTriangles = graph_picker(self.args.graph_name)
+
+        self.setup()
+        self.run_iterations()
+        self.save_results()
+        PlotResults(self.args, self.results)
 
 
     def setup(self):
@@ -77,6 +66,7 @@ class RunAlgorithms:
         else:
             Exception(f"Wrong input: {selected_algorithm}")
 
+# ============================================================================================================
 
     def run_iterations(self):
         self.results = {key: [] for key in [f'{DOULION} runtime', f'{self.args.selected_algorithm} runtime',
@@ -150,17 +140,7 @@ class RunAlgorithms:
     def accurary(self, estimated_triangles):
         return 100 - (abs(estimated_triangles - self.args.numOfTriangles) / self.args.numOfTriangles) * 100.0
 
-
 # ============================================================================================================
-# Print, plot and save results :
-# ============================================================================================================
-
-
-    def show_results(self):
-        if self.args.plotApproximate:
-            self.plotApproximate()
-        else:
-            [print(f'{key} : {value[0]}') for key, value in self.results.items()]
 
     def save_results(self):
         if not exists(RESULTS_DIR[:-1]):
@@ -172,39 +152,6 @@ class RunAlgorithms:
             self.args.memorySize = str(self.args.memorySize)
             self.args.apprParamValues = [str(v) for v in list(self.args.apprParamValues)]
             json.dump({'args': self.args, 'results': self.results}, file, indent=4)
-
-    def print_saved_results(self, saved_results_file_path):
-        print('\nFILE RESULTS:', saved_results_file_path)
-
-        with open(saved_results_file_path, 'r') as file:
-            data = json.load(file)
-        self.args = dotdict(data['args'])
-        self.results = data['results']
-        self.args.toString()
-        self.show_results()
-
-
-    def plotApproximate(self):
-
-        color = ['tab:blue', 'tab:cyan', 'tab:green', 'tab:orange']
-        plt.style.use(plt.style.library['seaborn-whitegrid'])
-
-        class_ = int if self.args.paramName == 'memorySize' else float
-        x = [class_(i) for i in self.args.apprParamValues]
-        xlabel = self.args.paramName
-
-        fig, axs = plt.subplots(nrows=len(self.results), ncols=1, figsize=(7, 10), squeeze=True)
-        plt.rcParams.update({'font.size': 12})
-        plt.xticks(fontsize=12)
-        plt.yticks(fontsize=12)
-
-        for i, (label, values) in enumerate(self.results.items()):
-            print(label, values)
-            axs[i].plot(x, values, color=color[i])
-            axs[i].set_xticks(x)
-            axs[i].set(xlabel=xlabel, ylabel=label)
-
-        plt.show()
 
 
 # ============================================================================================================
@@ -218,10 +165,10 @@ def main():
 
     # Selected dataset (as a variable, not str) for graph_picker
     # (see available graphs at util.py)
-    args.graph_name = DENSE_GENER
+    args.graph_name = GRQC
 
     # BRUTE_FORCE, NODE_ITERATOR, COMPACT_FORWARD or TRIEST (as a variable not str, capital)
-    args.selected_algorithm = TRIEST
+    args.selected_algorithm = COMPACT_FORWARD
 
     # Sparcify graph? True or False
     args.with_doulion = True
@@ -242,10 +189,6 @@ def main():
 
     # Uncomment to run algorithm according to args
     RunAlgorithms(args)
-
-    # load results from file (pycharm autocompletes). Uncomment to run
-    saved_results_file_path = 'results/CA-GrQc_alg-Brute Force_doulion-False_60584.json'
-    # RunAlgorithms(None, saved_results_file_path)
 
 
 if __name__ == '__main__':

@@ -1,12 +1,9 @@
-from source.brute_force import BruteForce
 from source.node_iterator_version2 import NodeIterator
-from source.compact_forward import CompactForward
 from source.doulion import Doulion
-from source.graph_class import Graph
+from other.graph_class import Graph
 import time
 
-from source.triest import Triest
-from source.util import *
+from other.util import *
 
 
 def main():
