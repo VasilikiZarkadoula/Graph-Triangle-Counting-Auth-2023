@@ -2,16 +2,20 @@ import warnings
 
 # available graphs
 # to add a new graph define a variable with the file name. txt extension is assumed
-GRQC = 'CA-GrQc'  # small
-ASTROPH = 'ca-AstroPh'  # medium
-YOUTUBE = 'com-youtube.ungraph'
-EMAILCORE = 'email-Eu-core'  # directed
+GRQC = 'CA-GrQc'                    # small
+ASTROPH = 'ca-AstroPh'              # medium
+YOUTUBE = 'com-youtube.ungraph'     # large
+EMAILCORE = 'email-Eu-core'         # directed
+DENSE_GENER = 'dense_generated'     # dense
+
 TOY_UNDIRECTED = 'toy_example_3_triangles'  # for testing
 TOY_DIRECTED = 'toy_example_directed'  # for testing
 PRESENTATION_EX = 'presentation-example'
 
 # a newly added graph must also be included in this list
-AVAILABLE_DATASETS = {ASTROPH, GRQC, YOUTUBE, EMAILCORE, TOY_UNDIRECTED, TOY_DIRECTED, PRESENTATION_EX}
+AVAILABLE_DATASETS = {ASTROPH, GRQC, YOUTUBE,
+                      EMAILCORE, DENSE_GENER,
+                      TOY_UNDIRECTED, TOY_DIRECTED, PRESENTATION_EX}
 
 # available algorithms
 BRUTE_FORCE = "Brute Force"
@@ -50,6 +54,10 @@ def graph_picker(graph_name):
     elif graph_name == EMAILCORE:
         # directed https://snap.stanford.edu/data/email-Eu-core.html
         numOfTriangles = 105461
+        saved_as_directed = True
+
+    elif graph_name == DENSE_GENER:
+        numOfTriangles = 18981254
         saved_as_directed = True
 
     elif graph_name == TOY_UNDIRECTED:

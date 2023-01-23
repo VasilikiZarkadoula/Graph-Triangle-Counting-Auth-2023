@@ -1,3 +1,5 @@
+from tqdm import tqdm
+
 
 class NeighborsIterator:
     def __init__(self, neighbors):
@@ -49,7 +51,7 @@ class CompactForward:
 
         #print(self.order)
 
-        for v in nodes:     # 3
+        for v in tqdm(nodes):     # 3
             #print('v=', v, self.order[v])
             for u in self.graph.neighbors(v):   # 3a
                 #print('\tu=', u, self.order[u])

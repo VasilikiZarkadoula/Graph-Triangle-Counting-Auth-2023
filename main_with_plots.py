@@ -218,10 +218,10 @@ def main():
 
     # Selected dataset (as a variable, not str) for graph_picker
     # (see available graphs at util.py)
-    args.graph_name = ASTROPH
+    args.graph_name = DENSE_GENER
 
     # BRUTE_FORCE, NODE_ITERATOR, COMPACT_FORWARD or TRIEST (as a variable not str, capital)
-    args.selected_algorithm = COMPACT_FORWARD
+    args.selected_algorithm = BRUTE_FORCE
 
     # Sparcify graph? True or False
     args.with_doulion = True
@@ -234,7 +234,7 @@ def main():
     # Run multiple iteration of an approximation alg with incremental approx param values
     # and plot results (for Doulion or Triest)? True or False
     # if True default approx param value is ignored
-    args.plotApproximate = False
+    args.plotApproximate = True
 
     validate_args(args)
     # print args:
