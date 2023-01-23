@@ -1,0 +1,28 @@
+{
+    "args": {
+        "graph_name": "ca-AstroPh",
+        "selected_algorithm": "Compact Forward",
+        "with_doulion": false,
+        "p": 0.1,
+        "memorySize": "3000",
+        "plotApproximate": false,
+        "graph_path": "graphs/ca-AstroPh.txt",
+        "saved_as_directed": false,
+        "numOfTriangles": 1351441,
+        "apprParamValues": [
+            ""
+        ],
+        "null": ""
+    },
+    "results": {
+        "Compact Forward runtime": [
+            3.358215570449829
+        ],
+        "Estimated Triangles": [
+            1351441
+        ],
+        "Accuracy": [
+            100.0
+        ]
+    }
+}

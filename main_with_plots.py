@@ -218,10 +218,10 @@ def main():
 
     # Selected dataset (as a variable, not str) for graph_picker
     # (see available graphs at util.py)
-    args.graph_name = SPARCE_ROADS
+    args.graph_name = YOUTUBE
 
     # BRUTE_FORCE, NODE_ITERATOR, COMPACT_FORWARD or TRIEST (as a variable not str, capital)
-    args.selected_algorithm = NODE_ITERATOR
+    args.selected_algorithm = COMPACT_FORWARD
 
     # Sparcify graph? True or False
     args.with_doulion = True
