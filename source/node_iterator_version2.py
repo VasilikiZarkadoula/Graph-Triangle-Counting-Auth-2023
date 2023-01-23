@@ -18,11 +18,13 @@ class NodeIterator:
         εκει ειχες το γραφημα αποθηκευμενο δυο φορες, μια ως graph (dict  απο lists)
         και μια ως graph_edges (set με ολες τις ακμες οπου ειχε και (v,u) και (u,v))
         """
-        self.graph = {v : set(u for u in neighbors_list if v < u)
-                      for v, neighbors_list in graph.graph.items()}
+        self.graph = graph.graph
 
 
     def node_iterator(self):
+
+        self.graph = {v: set(u for u in neighbors_list if v < u)
+                      for v, neighbors_list in self.graph.items()}
 
         count_triangles = 0
         # Για κάθε κορυφη v και σετ απο γειτονες nbrs_v τετοιο ωστε το v < απο ολους τους γειτονες

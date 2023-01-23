@@ -60,6 +60,6 @@ class PlotResults:
 
 
 if __name__ == '__main__':
-    # load results from file (pycharm autocompletes). Uncomment to run
+    # load results from file (pycharm autocompletes)
     saved_results_file_path = '../results/com-youtube.ungraph_alg-Compact Forward_doulion-True_72483.json'
     PlotResults(file_path=saved_results_file_path)
