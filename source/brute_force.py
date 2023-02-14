@@ -5,7 +5,6 @@ class BruteForce:
 
     def __init__(self, graph, is_directed = False):
         self.graph = graph
-        # self.denominator = 3 if is_directed else 6
 
     def brute_force(self):
         adj = self.graph.adj_matrix()
@@ -21,10 +20,5 @@ class BruteForce:
                     if adj[i][j] and adj[j][k] and adj[k][i]:
                         count_triangle += 1
 
-        # If graph is directed , division is done by 3
-        # else division by 6 is done
 
-        return count_triangle  # // self.denominator
-
-
-
+        return count_triangle  
