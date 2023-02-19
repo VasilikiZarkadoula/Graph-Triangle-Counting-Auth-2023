@@ -15,14 +15,14 @@ def SET_ARGUMENTS():
     values of the approximation parameter (p or memorySize) through plots generated from multiple
     runs of the algorithm. For Triest : To limit the memory size to a desired range(1k, limit, 1k)
     set the value of the triestBreakMemoryLimit accordingly.
-    The argument values set will then be validated and appropriate messages will be
+    The argument values will then be validated and appropriate messages will be
     printed to assist the user select values for the desired configuration.
     After the execution is finished, the results will be printed in the command line and, if
     plotApproximate is set to True, plots will also be shown (note that if the algorithm is exact
     plots will not show up despite plotApproximate being set to True).
     The results will also be saved in an appropriately named json file inside the '/results' folder.
     Results reported in the paper are saved in '/results/archived_results'. To plot saved results
-    from json file refer to '/other/plot_results.py'.
+    from a json file refer to '/other/plot_results.py'.
     """
     args = dotdict({})
     # Random seed value:
