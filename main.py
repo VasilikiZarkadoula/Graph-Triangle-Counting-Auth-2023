@@ -21,8 +21,8 @@ def SET_ARGUMENTS():
     plotApproximate is set to True, plots will also be shown (note that if the algorithm is exact
     plots will not show up despite plotApproximate being set to True).
     The results will also be saved in an appropriately named json file inside the '/results' folder.
-    Results reported in the paper are saved in '/results/archived_results'. To plot past saved results
-    refer to '/other/plot_results.py'.
+    Results reported in the paper are saved in '/results/archived_results'. To plot saved results
+    from json file refer to '/other/plot_results.py'.
     """
     args = dotdict({})
     # Random seed value
