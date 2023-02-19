@@ -16,8 +16,8 @@ from source.triest import Triest
 from other.graph_class import Graph
 
 RESULTS_DIR  = 'results/'
-TRIEST_ACCURACY_THRS = 99.6
-MEMORY_LIMIT = 20000
+# TRIEST_ACCURACY_THRS = 99.6
+# MEMORY_LIMIT = 20000
 
 class RunAlgorithms:
     def __init__(self, args):
@@ -30,14 +30,14 @@ class RunAlgorithms:
         self.setup()
         self.run_iterations()
         self.save_results()
-        PlotResults(self.args, self.results)
+        # PlotResults(self.args, self.results)
 
 
     def setup(self):
 
         if self.args.selected_algorithm == TRIEST:
             self.graph = Graph(self.args.graph_path, self.args.saved_as_directed, triest=True).graph
-            start, end, step, self.args.paramName = 1000, len(self.graph), 1000, 'memorySize'
+            start, end, step, self.args.paramName = 1000, 45000, 1000, 'memorySize'
 
         elif self.args.with_doulion:
             start, end, step, self.args.paramName = 0.1, 1, 0.1, 'p'
@@ -100,8 +100,8 @@ class RunAlgorithms:
         if self.results['Accuracy'][-1] == 100:
             return True
 
-        return approximationParamValue > MEMORY_LIMIT and \
-            self.results['Accuracy'][-1] > TRIEST_ACCURACY_THRS
+        # return approximationParamValue > MEMORY_LIMIT and \
+        #    self.results['Accuracy'][-1] > TRIEST_ACCURACY_THRS
 
 
     def run_triangle_counting_alg_iteration(self):
@@ -165,10 +165,10 @@ def main():
 
     # Selected dataset (as a variable, not str) for graph_picker
     # (see available graphs at util.py)
-    args.graph_name = SPARCE_ROADS
+    args.graph_name = ASTROPH
 
     # BRUTE_FORCE, NODE_ITERATOR, COMPACT_FORWARD or TRIEST (as a variable not str, capital)
-    args.selected_algorithm = NODE_ITERATOR
+    args.selected_algorithm = TRIEST
 
     # Sparcify graph? True or False
     args.with_doulion = True
@@ -187,7 +187,7 @@ def main():
     # print args:
     args.toString()
 
-    # Uncomment to run algorithm according to args
+    # run algorithm according to args
     RunAlgorithms(args)
 
 

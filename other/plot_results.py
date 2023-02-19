@@ -1,7 +1,8 @@
+import glob
 import json
 from os.path import exists
 from matplotlib import pyplot as plt
-from other.util import dotdict
+from other.util import *
 class PlotResults:
 
     def __init__(self, args=None, results=None, file_path=None):
@@ -13,8 +14,11 @@ class PlotResults:
                   are also drawn if multiple iterations of an approx algo ran
                   (args.plotApproximate values was True)
         """
-        if file_path is not None and exists(file_path):
-            self.load_seved_results(file_path)
+        if file_path is not None :
+            if exists(file_path):
+                self.load_seved_results(file_path)
+            else:
+                raise Exception(f"Not found {file_path}")
         else:
             self.args = args
             self.results = results
@@ -59,7 +63,23 @@ class PlotResults:
         plt.show()
 
 
+def find_file_by_args():
+    DATASET = SPARCE_ROADS
+    ALGORITHM = TRIEST
+    WITH_DOULION = False
+
+    file_path = f'../results/{DATASET}_alg-{ALGORITHM}_doulion-{WITH_DOULION}_*.json'
+    file_path = glob.glob(file_path)
+    if len(file_path) >= 1:
+        PlotResults(file_path=file_path[0])
+    else:
+        raise Exception("File not found")
+
+
 if __name__ == '__main__':
+
+    find_file_by_args()
+
     # load results from file (pycharm autocompletes)
-    saved_results_file_path = '../results/com-youtube.ungraph_alg-Compact Forward_doulion-True_72483.json'
-    PlotResults(file_path=saved_results_file_path)
+    # saved_results_file_path = '../results/ca-AstroPh_alg-Node Iterator_doulion-True_64483.json'
+    #PlotResults(file_path=saved_results_file_path)

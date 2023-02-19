@@ -46,10 +46,12 @@ def graph_picker(graph_name):
         saved_as_directed = False
 
     elif graph_name == GRQC:
+        # https://snap.stanford.edu/data/ca-GrQc.html?fbclid=IwAR29gS39j3a-ukqZPoE9NfGUslCF5kTUwdmlxNvbthDEv0_F3koj1TDcliQ
         numOfTriangles = 48260
         saved_as_directed = False
 
     elif graph_name == YOUTUBE:
+        # https://snap.stanford.edu/data/com-Youtube.html?fbclid=IwAR1ltmheZK3E3t9CUXsVplW0qRQu6eHa7ZOYMtP0PYaa45nnBX4p6EFoNHI
         numOfTriangles = 3056386
         saved_as_directed = True
 
@@ -63,6 +65,7 @@ def graph_picker(graph_name):
         saved_as_directed = True
 
     elif graph_name == SPARCE_ROADS:
+        # http://snap.stanford.edu/data/roadNet-PA.html?fbclid=IwAR3AORWeujXBi_klRcKiHKDR9ExwNVXmPGJ903djWWVd2jZFb6-YfvJ-6uQ
         numOfTriangles = 67150
         saved_as_directed = False
 
