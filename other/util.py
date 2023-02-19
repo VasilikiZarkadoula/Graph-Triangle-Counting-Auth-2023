@@ -5,19 +5,11 @@ import warnings
 GRQC = 'CA-GrQc'                    # small
 ASTROPH = 'ca-AstroPh'              # medium
 YOUTUBE = 'com-youtube.ungraph'     # large
-EMAILCORE = 'email-Eu-core'         # directed
-DENSE_GENER = 'dense_generated'     # dense
-SPARCE_ROADS = 'roadNet-PA'         # sparce
-
-
-TOY_UNDIRECTED = 'toy_example_3_triangles'  # for testing
-TOY_DIRECTED = 'toy_example_directed'  # for testing
+SPARSE_ROADS = 'roadNet-PA'         # sparse
 
 
 # a newly added graph must also be included in this list
-AVAILABLE_DATASETS = {ASTROPH, GRQC, YOUTUBE,
-                      EMAILCORE, DENSE_GENER, SPARCE_ROADS,
-                      TOY_UNDIRECTED, TOY_DIRECTED}
+AVAILABLE_DATASETS = {ASTROPH, GRQC, YOUTUBE,SPARSE_ROADS}
 
 # available algorithms
 BRUTE_FORCE = "Brute Force"
@@ -55,29 +47,10 @@ def graph_picker(graph_name):
         numOfTriangles = 3056386
         saved_as_directed = True
 
-    elif graph_name == EMAILCORE:
-        # directed https://snap.stanford.edu/data/email-Eu-core.html
-        numOfTriangles = 105461
-        saved_as_directed = True
-
-    elif graph_name == DENSE_GENER:
-        numOfTriangles = 18981254
-        saved_as_directed = True
-
-    elif graph_name == SPARCE_ROADS:
+    elif graph_name == SPARSE_ROADS:
         # http://snap.stanford.edu/data/roadNet-PA.html?fbclid=IwAR3AORWeujXBi_klRcKiHKDR9ExwNVXmPGJ903djWWVd2jZFb6-YfvJ-6uQ
         numOfTriangles = 67150
         saved_as_directed = False
-
-    # ---------------------------------
-    elif graph_name == TOY_UNDIRECTED:
-        numOfTriangles = 3
-        saved_as_directed = False
-
-    elif graph_name == TOY_DIRECTED:
-        # directed graph
-        numOfTriangles = 2
-        saved_as_directed = True
 
     else:
         raise Exception("Unknown dataset")

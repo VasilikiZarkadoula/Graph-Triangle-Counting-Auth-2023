@@ -4,20 +4,17 @@ from os import mkdir
 from os.path import exists
 
 import numpy as np
-from random import seed
 
 from other.plot_results import PlotResults
 from other.util import *
-from source.brute_force import BruteForce
-from source.node_iterator_version2 import NodeIterator
-from source.compact_forward import CompactForward
-from source.doulion import Doulion
-from source.triest import Triest
+from algorithms.brute_force import BruteForce
+from algorithms.node_iterator import NodeIterator
+from algorithms.compact_forward import CompactForward
+from algorithms.doulion import Doulion
+from algorithms.triest import Triest
 from other.graph_class import Graph
 
 RESULTS_DIR  = 'results/'
-# TRIEST_ACCURACY_THRS = 99.6
-# MEMORY_LIMIT = 20000
 
 class RunAlgorithms:
     def __init__(self, args):
@@ -30,14 +27,14 @@ class RunAlgorithms:
         self.setup()
         self.run_iterations()
         self.save_results()
-        # PlotResults(self.args, self.results)
+        PlotResults(self.args, self.results)
 
 
     def setup(self):
 
         if self.args.selected_algorithm == TRIEST:
             self.graph = Graph(self.args.graph_path, self.args.saved_as_directed, triest=True).graph
-            start, end, step, self.args.paramName = 1000, 45000, 1000, 'memorySize'
+            start, end, step, self.args.paramName = 1000, len(self.graph), 1000, 'memorySize'
 
         elif self.args.with_doulion:
             start, end, step, self.args.paramName = 0.1, 1, 0.1, 'p'
@@ -100,8 +97,7 @@ class RunAlgorithms:
         if self.results['Accuracy'][-1] == 100:
             return True
 
-        # return approximationParamValue > MEMORY_LIMIT and \
-        #    self.results['Accuracy'][-1] > TRIEST_ACCURACY_THRS
+        return approximationParamValue > self.args.triestBreakMemoryLimit
 
 
     def run_triangle_counting_alg_iteration(self):
@@ -157,39 +153,3 @@ class RunAlgorithms:
 # ============================================================================================================
 
 
-def main():
-    seed(42)
-    args = dotdict({})
-
-    # set arguments:
-
-    # Selected dataset (as a variable, not str) for graph_picker
-    # (see available graphs at util.py)
-    args.graph_name = ASTROPH
-
-    # BRUTE_FORCE, NODE_ITERATOR, COMPACT_FORWARD or TRIEST (as a variable not str, capital)
-    args.selected_algorithm = TRIEST
-
-    # Sparcify graph? True or False
-    args.with_doulion = True
-    # Doulion approximation parameter: Coin toss success probability. 0 <= p <= 1
-    args.p = 0.1
-
-    # Triest approximation parameter: sample size (# sampled edges). Integer
-    args.memorySize = 3000
-
-    # Run multiple iteration of an approximation alg with incremental approx param values
-    # and plot results (for Doulion or Triest)? True or False
-    # if True default approx param value is ignored
-    args.plotApproximate = True
-
-    validate_args(args)
-    # print args:
-    args.toString()
-
-    # run algorithm according to args
-    RunAlgorithms(args)
-
-
-if __name__ == '__main__':
-    main()

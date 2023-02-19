@@ -1,5 +1,7 @@
 from random import randint, random
 
+from tqdm import tqdm
+
 
 class GraphSample:
     def __init__(self, memorySize):
@@ -51,7 +53,7 @@ class Triest:
 
 
     def triest(self):
-        for v, u in self.graphStream :
+        for v, u in tqdm(self.graphStream) :
             self.t += 1
             self._updateCounters(v, u)
             if self._sampleStreamEdge():

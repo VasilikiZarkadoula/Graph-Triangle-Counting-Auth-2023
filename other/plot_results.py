@@ -64,11 +64,11 @@ class PlotResults:
 
 
 def find_file_by_args():
-    DATASET = SPARCE_ROADS
+    DATASET = SPARSE_ROADS
     ALGORITHM = TRIEST
     WITH_DOULION = False
 
-    file_path = f'../results/{DATASET}_alg-{ALGORITHM}_doulion-{WITH_DOULION}_*.json'
+    file_path = f'../results/archived_results/{DATASET}_alg-{ALGORITHM}_doulion-{WITH_DOULION}_*.json'
     file_path = glob.glob(file_path)
     if len(file_path) >= 1:
         PlotResults(file_path=file_path[0])
@@ -78,8 +78,8 @@ def find_file_by_args():
 
 if __name__ == '__main__':
 
-    find_file_by_args()
+    # find_file_by_args()
 
     # load results from file (pycharm autocompletes)
-    # saved_results_file_path = '../results/ca-AstroPh_alg-Node Iterator_doulion-True_64483.json'
-    #PlotResults(file_path=saved_results_file_path)
+    saved_results_file_path = '../results/archived_results/ca-AstroPh_alg-Node Iterator_doulion-True_64483.json'
+    PlotResults(file_path=saved_results_file_path)
