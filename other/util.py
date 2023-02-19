@@ -33,7 +33,7 @@ def graph_picker(graph_name):
     graph_path = f"graphs/{graph_name}.txt"
 
     if graph_name == ASTROPH:
-        # undirected https://snap.stanford.edu/data/ca-AstroPh.html
+        # https://snap.stanford.edu/data/ca-AstroPh.html
         numOfTriangles = 1351441
         saved_as_directed = False
 
