@@ -25,7 +25,7 @@ def SET_ARGUMENTS():
     from json file refer to '/other/plot_results.py'.
     """
     args = dotdict({})
-    # Random seed value
+    # Random seed value:
     seed(42)
 
     # Selected dataset as a variable, not str (see available graphs at other\util.py)
